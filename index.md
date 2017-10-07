@@ -1,5 +1,5 @@
 ---
-layout: default_links
+layout: default
 ---
 
 Welcome to my website.
