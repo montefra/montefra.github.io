@@ -1,6 +1,15 @@
 ## Welcome to GitHub Pages
 
-This repo is my personal website
+This repo is my (Francesco Montesano) personal website
+
+## Licences
+
+This repository brings two licences:
+
+* [MIT](LICENSE_CODE.txt): for the part of the repository regarding templates,
+    style, configuration, etc;
+* [CC0](LICENSE_DOCS.txt): for the creative part of the repository, i.e. all the
+    documents that form the body of the website
 
 ## GitHub Pages information
 
@@ -53,3 +62,9 @@ Having trouble with Pages? Check out our [documentation](https://help.github.com
 * Serve the offline documentation
 
     bundle exec jekyll _3.5.2_ docs
+
+## Acknowledgements
+
+The templates and styles used to create this page are modified copies of or
+heavily inspired by the projects [minima](https://github.com/jekyll/minima) and
+[jekyll-theme-hacker](https://github.com/pages-themes/hacker.git).
