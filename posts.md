@@ -1,9 +1,5 @@
 ---
-layout: default_links
+layout: post_list
 title: Posts
 permalink: /posts/
 ---
-
-My posts
-
-
