@@ -4,14 +4,12 @@ title:  "Python virtualenv and Anaconda"
 date:   2017-05-11
 categories: python virtualenv anaconda pyastro17
 author: Francesco Montesano
----
-
-I would like to thank [Emre Aydin](eaydin) for pushing me into write this and
-[Lucia
-Klarmann](https://www.uva.nl/en/profile/k/l/l.a.klarmann/l.a.klarmann.html) for
-helping me organize my babbling and supervisioning the first draft of this
-article.
-
+acknowledgments: 
+    - '[Emre Aydin](eaydin) for pushing me into write this post'
+    - '[Lucia
+       Klarmann](https://www.uva.nl/en/profile/k/l/l.a.klarmann/l.a.klarmann.html)
+       for helping me organize my babbling and supervisioning the first draft of
+       this article'
 ---
 
 ### Python import resolution
