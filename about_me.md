@@ -4,47 +4,49 @@ layout: default
 
 ## Current position
 
-2013 - present
-
-**Software engineer, data analyst**
+2013 - present: **Software engineer, data analyst**
 
 Max-Plank-Institute for Extraterrestrial Physics,
 Garching bei Munchen, Germany
 
 ## Work experience
 
-2011 - 2012
-
-**Post-doctoral researcher**
+2011 - 2012: **Post-doctoral researcher**
 
 Max-Plank-Institute for Extraterrestrial Physics,
 Garching bei Munchen, Germany
 
 ## Education
 
-2011
-
-**Doctorate in Astronomy**
+2011: **Doctorate in Astronomy**
 
 Max-Plank-Institute for Extraterrestrial Physics,
 Garching bei Munchen, Germany
 
-2007
+2007: **Master in Physics**
 
-**Master in Physics**
-
-Universit degli Studi di Milano
+Universit&agrave; degli Studi di Milano,
 Milano, Italy
 
 ## Technologies
 
-Python, C++, Bash
+[Python](https://www.python.org){: .btn}
+[C++](http://www.cplusplus.com/){: .btn}
+[Bash](https://www.gnu.org/software/bash/){: .btn}
 
-PyQt, ZeroMQ, SQL, Jinja
+[Linux](https://www.linux.org/){: .btn} (Kubuntu, OpenSUSE)
 
-Flask
+[PyQt4](http://pyqt.sourceforge.net/Docs/PyQt4/index.html){: .btn}
+[pytest](https://docs.pytest.org/){: .btn}
+[sphinx](http://www.sphinx-doc.org/){: .btn}
 
-Linux
+[ZeroMQ](https://pyzmq.readthedocs.io/){: .btn}
+[Jinja](http://jinja.pocoo.org/){: .btn}
+[Flask](http://flask.pocoo.org/){: .btn}
+
+[SQL](https://www.w3schools.com/sql/sql_intro.asp){: .btn} (Oracle, sqlite)
+
+[LaTeX](https://www.latex-project.org/){: .btn}
 
 ## Contacts and links
 
