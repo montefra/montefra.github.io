@@ -33,19 +33,16 @@ Milano, Italy
 [Python](https://www.python.org){: .btn}
 [C++](http://www.cplusplus.com/){: .btn}
 [Bash](https://www.gnu.org/software/bash/){: .btn}
-
-[Linux](https://www.linux.org/){: .btn} (Kubuntu, OpenSUSE)
+[Linux (Kubuntu, OpenSUSE)](https://www.linux.org/){: .btn}
 
 [PyQt4](http://pyqt.sourceforge.net/Docs/PyQt4/index.html){: .btn}
 [pytest](https://docs.pytest.org/){: .btn}
-[sphinx](http://www.sphinx-doc.org/){: .btn}
-
-[ZeroMQ](https://pyzmq.readthedocs.io/){: .btn}
+[Sphinx](http://www.sphinx-doc.org/){: .btn}
+[&#216;MQ](https://pyzmq.readthedocs.io/){: .btn}
 [Jinja](http://jinja.pocoo.org/){: .btn}
 [Flask](http://flask.pocoo.org/){: .btn}
 
-[SQL](https://www.w3schools.com/sql/sql_intro.asp){: .btn} (Oracle, sqlite)
-
+[SQL (Oracle, sqlite)](https://www.w3schools.com/sql/sql_intro.asp){: .btn}
 [LaTeX](https://www.latex-project.org/){: .btn}
 
 ## Contacts and links
