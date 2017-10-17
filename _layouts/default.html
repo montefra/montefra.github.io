@@ -26,7 +26,6 @@
           <a href="{{ site.baseurl }}{% link index.md %}" class="btn">Home</a>
           <a href="{{ site.baseurl }}{% link about_me.md %}" class="btn">About me</a>
           <a href="{{ site.baseurl }}{% link posts.md %}" class="btn">Posts</a>
-          <a href="{{ site.baseurl }}{% link acknowledgement.md %}" class="btn">Acknowledgement</a>
         </section>
       </div>
     </header>
@@ -36,6 +35,8 @@
         {{ content }}
       </section>
     </div>
+
+    {% include footer.html %}
 
     {% if site.google_analytics %}
       <script type="text/javascript">
