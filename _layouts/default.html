@@ -16,19 +16,16 @@
         <h1>{{ site.title | default: site.github.repository_name }}</h1>
         <h2>{{ site.description | default: site.github.project_tagline }}</h2>
 
+          <a href="{{ site.github.repository_url }}">
+              <img style="position: absolute; top: 0; right: 0; border: 0;"
+                src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67"
+                alt="Fork me on GitHub"
+                data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png">
+          </a>
         <section id="links">
           <a href="{{ site.baseurl }}{% link index.md %}" class="btn">Home</a>
           <a href="{{ site.baseurl }}{% link about_me.md %}" class="btn">About me</a>
           <a href="{{ site.baseurl }}{% link posts.md %}" class="btn">Posts</a>
-          <a href="{{ site.baseurl }}{% link acknowledgement.md %}" class="btn">Acknowledgement</a>
-        </section>
-        <section id="downloads">
-          {% if site.show_downloads %}
-            <a href="{{ site.github.zip_url }}" class="btn">Download as .zip</a>
-            <a href="{{ site.github.tar_url }}" class="btn">Download as .tar.gz</a>
-          {% endif %}
-          <a href="{{ site.github.repository_url }}" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-          <a href="mailto:{{ site.email }}" class="btn">Email me</a>
         </section>
       </div>
     </header>
@@ -38,6 +35,8 @@
         {{ content }}
       </section>
     </div>
+
+    {% include footer.html %}
 
     {% if site.google_analytics %}
       <script type="text/javascript">

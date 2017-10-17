@@ -9,6 +9,9 @@ source "https://rubygems.org"
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 
-gem 'github-pages', group: :jekyll_plugins
-
+group :jekyll_plugins do
+    gem 'github-pages'
+    gem 'jekyll-livereload'
+end
 gem 'jekyll-docs', '3.5.2'
+
