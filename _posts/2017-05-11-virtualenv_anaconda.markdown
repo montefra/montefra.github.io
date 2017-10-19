@@ -5,11 +5,11 @@ date:   2017-05-11
 categories: python virtualenv anaconda pyastro17
 author: Francesco Montesano
 acknowledgments: 
-    - '[Emre Aydin](eaydin), for pushing me into writing this post'
     - '[Lucia
        Klarmann](https://www.uva.nl/en/profile/k/l/l.a.klarmann/l.a.klarmann.html),
        for helping me organize my babbling and supervisioning the first draft of
        this post'
+    - '[Emre Aydin](eaydin), for pushing me into writing this post'
 ---
 
 ## Python import resolution
@@ -163,61 +163,75 @@ Fortunately if you need other version of python, there are various options:
 
 ### Pyenv
 
-Pyenv is a suite of shell commands that install and manage multiple python
-versions. All this without shadowing the python versions installed on you
-system. It is available only for Linux and MacOS X.
+Pyenv is a suite of shell commands to install and manage multiple independent
+python versions. It is available only for Linux and MacOS X.
 
-Pyenv can be easily installed using an handy
+Pyenv can be easily installed using a handy
 [installer](https://github.com/pyenv/pyenv-installer) or following the
-instructions in the [project github page](https://github.com/pyenv/pyenv).
-Beside being easier, the installer has also the advantage that it installs a
-number of plugins, for example one that provides virtualenv integration. The
-installation does not require special permissions, as all the necessary files
-are put, by default, in ``$HOME/.pyenv``.
+instructions in the [project github page](https://github.com/pyenv/pyenv). On
+top of being easier, the installer also installs a number of plugins, for
+example one that provides virtualenv integration. The installation does not
+require special permissions, as all the necessary files are put, by default, in
+``$HOME/.pyenv``.
 
 Once ready, you can install your favourite python interpreter with the command
 
     pyenv install <version>
 
-This will create a new directory inside the pyenv home, compile the python
-interpreter for you and add all the necessary functionalities. At 18.10.2017,
-it is possible to install 340 interpreters:
+This will create a new directory inside the ``pyenv`` home, compile the python
+interpreter for you and add all the necessary functionalities. As of 18.10.2017,
+it is possible to install 340 different interpreters:
 
-* CPython: 83 versions, starting with 2.1.3
-* PyPy: 129 versions
-* Anaconda/Miniconda: 44/42 versions
-* ironpython, jython, micropython, pyston, stackless: a few of each
+* ``CPython``: 83 versions, starting with 2.1.3
+* ``PyPy``: 129 versions
+* ``Anaconda``/``Miniconda``: 44/42 versions
+* ``ironpython``, ``jython``, ``micropython``, ``pyston``, ``stackless``: a few
+  of each
 
-Afterwards, you can switch to you new python version using the command:
+The command 
 
     pyenv shell <version>
 
-To switch back to the system version use:
+activates the version required version, while 
 
     pyenv shell --unset
 
-To know which version are you using issue:
+switches back to the default version.
 
-    pyenv version
+By default the (sic.) default python version is ``system``, i.e. typically the
+one that comes with your operating system. However it is possible to customise
+the default python version both globally, with ``pyenv global <version>``, and
+locally, with ``pyenv local <version>``. The latter command creates a file
+called ``.python-version`` in the directory from where it is executed. When
+``cd``-ing in the directory the ``<version>`` is automatically activated and
+when leaving it is deactivated.
 
-while:
+The list of all installed version can be obtained with the 
 
     pyenv versions
 
-shows all the installed versions.
+command, while the current version is returned by:
 
-There are a few pyenv plugins in the wild and one of them integrates it with
-virtualenv.  Thanks to it, it is possible to create a new virtualenv using:
+    pyenv version
+
+As already said, ``pyenv`` has a number of plugins that expands the basic
+functionality. A very interesting one is
+[``pyenv-virtualenv``](https://github.com/yyuu/pyenv-virtualenv.git) that
+integrates ``virtualenv`` with ``pyenv``. A new virtual environment with using
+the python ``<version>`` is created by the command
 
     pyenv virtualenv <version> <venv_name>
 
-It is of course possible to create a virtualenv using the one of the system python version using the following command:
+An environment based on one of the system python version can be instead created
+with:
 
-    pyenv virtualenv --python /usr/bin/python2 <venv_name>
+    pyenv virtualenv --python /usr/bin/python3 <venv_name>
 
-and then to switch to it using
+Virtual environments created this way can be activated and deactivate with
 
-    pyenv shell <venv_name>
+    pyenv shell {<venv_name>|--unset}
+
+and feel like any version installed with ``pyenv``.
 
 ### Anaconda
 
