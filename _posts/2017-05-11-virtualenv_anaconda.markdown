@@ -233,8 +233,11 @@ Virtual environments created this way can be activated and deactivate with
 
 and feel like any version installed with ``pyenv``.
 
-### Anaconda
+### Conda/Anaconda/Miniconda
 
-Anaconda is a software distribution centered around python. It comes with a
-package manager, conda, that allows to install packages as well as create
-environment similar to the virtualenv described above.
+[Anaconda](https://www.anaconda.com/what-is-anaconda/) is a software
+distribution centered around python. One of the central component is
+[``conda``](https://conda.io/docs/index.html), a package and environment
+manager. 
+
+[Post about conda/pip](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/)
