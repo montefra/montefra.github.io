@@ -4,14 +4,14 @@ layout: default
 
 ## Current position
 
-2013 - present: **Software engineer, data analyst**
+2014 - present: **Software engineer, data analyst**
 
 Max-Plank-Institute for Extraterrestrial Physics,
 Garching bei Munchen, Germany
 
 ## Work experience
 
-2011 - 2012: **Post-doctoral researcher**
+2012 - 2013: **Post-doctoral researcher**
 
 Max-Plank-Institute for Extraterrestrial Physics,
 Garching bei Munchen, Germany
@@ -33,17 +33,29 @@ Milano, Italy
 [Python](https://www.python.org){: .btn}
 [C++](http://www.cplusplus.com/){: .btn}
 [Bash](https://www.gnu.org/software/bash/){: .btn}
-[Linux (Kubuntu, OpenSUSE)](https://www.linux.org/){: .btn}
+[Linux](https://www.linux.org/){: .btn}
+[Vim](https://vim.sourceforge.io/){: .btn}
 
-[PyQt4](http://pyqt.sourceforge.net/Docs/PyQt4/index.html){: .btn}
 [pytest](https://docs.pytest.org/){: .btn}
 [Sphinx](http://www.sphinx-doc.org/){: .btn}
+[PyQt4](http://pyqt.sourceforge.net/Docs/PyQt4/index.html){: .btn}
 [&#216;MQ](https://pyzmq.readthedocs.io/){: .btn}
 [Jinja](http://jinja.pocoo.org/){: .btn}
 [Flask](http://flask.pocoo.org/){: .btn}
 
-[SQL (Oracle, sqlite)](https://www.w3schools.com/sql/sql_intro.asp){: .btn}
+[SQL (Oracle, SQLite)](https://www.w3schools.com/sql/sql_intro.asp){: .btn}
 [LaTeX](https://www.latex-project.org/){: .btn}
+
+[Fortran](http://www.j3-fortran.org/){: .btn}
+[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript){: .btn}
+[JQuery](https://jquery.com/){: .btn}
+[Bootstrap](http://getbootstrap.com/){: .btn}
+[Haskell](https://www.haskell.org/){: .btn}
+
+## Curriculum Vitae
+
+[English]({{ site.url }}/static/CV_Francesco_Montesano_eng.pdf) (updated on
+25.10.2017)
 
 ## Contacts and links
 
