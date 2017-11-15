@@ -233,11 +233,54 @@ Virtual environments created this way can be activated and deactivate with
 
 and feel like any version installed with ``pyenv``.
 
-### Conda/Anaconda/Miniconda
+### Conda
 
-[Anaconda](https://www.anaconda.com/what-is-anaconda/) is a software
-distribution centered around python. One of the central component is
-[``conda``](https://conda.io/docs/index.html), a package and environment
-manager. 
+If you need or want even more isolation from the host system or you don't have
+root access to install libraries like ``Qt``, you can use the
+[``conda``](https://conda.io/docs/index.html) package and environment manager.
+``conda`` is part of the [Anaconda](https://www.anaconda.com/what-is-anaconda/)
+software distribution or its lightweight sibling
+[Miniconda](https://conda.io/miniconda.html). If you already have
+[pyenv](#pyenv) installed, you can use ``pyvenv install`` to install any of the
+40 Anaconda or Miniconda versions.
+
+Once you have ``conda`` installed, you can use the following commands to
+install, update or packages:
+
+    conda install PACKAGENAME
+    conda update PACKAGENAME
+
+If you need a python package that is not available on the ``conda``
+repositories, you can of course install install ``pip``:
+
+    conda install pip
+
+and use it.
+
+As already written, ``conda`` is also an environment manager, i.e. allows to
+create/manipulate/delete isolated environments. The command
+
+    conda create -n myenv [PACKAGENAME1 [PACKAGENAME2 [...]]]
+
+creates a new environment called ``myenv`` and installs the provided packages.
+``PACKAGENAME`` can be any of the packages available to ``conda``, including
+python versions. E.g.:
+
+    conda create -n myenv python=3.5
+
+creates an environment that uses python 3.5.
+
+The environment can be activated using:
+
+    source activate myenv
+
+and deactivated with:
+
+    source deactivate
+
+The ``activate`` script is located in the Anaconda/Miniconda ``bin`` directory,
+like the ``conda`` executable, so you might need to provide its full name, if
+the ``bin`` directory is not in your ``PATH``. Once active you can
+install/update 
 
 [Post about conda/pip](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/)
