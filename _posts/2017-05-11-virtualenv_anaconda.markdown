@@ -239,7 +239,7 @@ If you need or want even more isolation from the host system or you don't have
 root access to install libraries like ``Qt``, you can use the
 [``conda``](https://conda.io/docs/index.html) package and environment manager.
 ``conda`` is part of the [Anaconda](https://www.anaconda.com/what-is-anaconda/)
-software distribution or its lightweight sibling
+software distribution as well as of its lightweight sibling
 [Miniconda](https://conda.io/miniconda.html). If you already have
 [pyenv](#pyenv) installed, you can use ``pyvenv install`` to install any of the
 40 Anaconda or Miniconda versions.
@@ -247,40 +247,71 @@ software distribution or its lightweight sibling
 Once you have ``conda`` installed, you can use the following commands to
 install, update or packages:
 
-    conda install PACKAGENAME
-    conda update PACKAGENAME
+    conda install <package_name>
+    conda update <package_name>
 
-If you need a python package that is not available on the ``conda``
-repositories, you can of course install install ``pip``:
+If a python package that is not available on the ``conda``
+repositories, you can of install install ``pip`` and use it to install the
+missing package:
 
     conda install pip
+    pip install <other_package>
 
 and use it.
 
-As already written, ``conda`` is also an environment manager, i.e. allows to
+As already written, ``conda`` is also an environment manager: it can be used
 create/manipulate/delete isolated environments. The command
 
-    conda create -n myenv [PACKAGENAME1 [PACKAGENAME2 [...]]]
+    conda create -n <env_name> [<package_name1> [<packagename2> [...]]]
 
 creates a new environment called ``myenv`` and installs the provided packages.
-``PACKAGENAME`` can be any of the packages available to ``conda``, including
-python versions. E.g.:
+``<package_name(n)>`` can be any of the packages available to ``conda``,
+including python. As example:
 
     conda create -n myenv python=3.5
 
-creates an environment that uses python 3.5.
+creates an environment called ``myenv`` that uses python 3.5.
 
-The environment can be activated using:
+Once created, the environment can be activated using:
 
-    source activate myenv
+    source activate <env_name>
 
 and deactivated with:
 
     source deactivate
 
 The ``activate`` script is located in the Anaconda/Miniconda ``bin`` directory,
-like the ``conda`` executable, so you might need to provide its full name, if
-the ``bin`` directory is not in your ``PATH``. Once active you can
-install/update 
+alongside ``conda``: this directory is not in your ``PATH`` you might need to
+provide its full name. Once active you can install/update packages as shown
+above either using ``conda`` or ``pip``.
 
-[Post about conda/pip](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/)
+Although the ``conda`` environments feels like the python virtualenvs, there are
+important differences. As far as I know, the two main ones are listed below.
+
+* The ``conda`` environments are **completely** isolated, and contain their own
+  version of the python interpreter. On the other hand ``virtualenvs`` rely on
+  an existing external python version: the environment ``python`` interpreter is
+  a copy of the system one, while the files that form the standard library are
+  symlinks to the corresponding system files.
+* While ``virtualenvs`` are pure **python** environments, ``conda`` ones handle
+  also non-python packages. As example your system has ``Qt`` version 5.9.x, but you
+  need to develop an application against an older version. You can create a new
+  environment specifying a different version:
+
+    conda create -n qt5_old python=3.6 qt==5.6.0
+
+  and switch to it <sup id="a1">[1](#f1)</sup>.
+
+For more information about differences between ``conda`` and the
+``pip``/``virtualenvs`` combo, you can read this [
+[interesting post
+by](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/).
+I have used this post for some of the information shown here.
+
+## Footnotes
+
+<b id="f1">1</b>&bull; I don't know how many versions of packages like ``Qt``
+are supported by [Anaconda](https://www.anaconda.com/), so this might not be as
+easy at it sounds. However it might be possible to have more flexibility using
+additional repositories or use tools like
+[conda-forge](https://conda-forge.org/) to build your own package.  [↩](#a1)
