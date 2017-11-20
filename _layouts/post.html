@@ -12,7 +12,19 @@ layout: default
       </time>
       {% if page.author %}
         • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
-      {% endif %}</p>
+      {% endif %}
+    </p>
+    {% if page.acknowledgments %}
+      <hr>
+      <p class="post-meta">
+        Acknowledgments:
+        <ul>
+        {% for a in page.acknowledgments %}
+          <li> {{ a | markdownify }} </li>
+        {% endfor %}
+        </ul>
+      </p>
+    {% endif %}
   </header>
 
   <div class="post-content" itemprop="articleBody">
