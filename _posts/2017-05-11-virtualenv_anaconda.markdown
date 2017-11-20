@@ -311,10 +311,31 @@ important differences. As far as I know, the two main ones are:
   and switch to it <sup id="a4">[4](#f4)</sup>.
 
 For more information about differences between ``conda`` and the
-``pip``/``virtualenvs`` combo, you can read this [
-[interesting post
-by](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/).
+``pip``/``virtualenvs`` combo, you can read this [interesting post by Jake
+VanderPlas](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/).
 I have used this post for some of the information shown here.
+
+``conda`` has also a few drawbacks. Two I aware of are:
+
+* it is not compatible with [``tox``](https://tox.readthedocs.io/en/latest/):
+  ``tox`` leverages virtual environments (and optionally also
+  [``pyenv``](https://pypi.python.org/pypi/tox-pyenv)) to check package
+  installation and to run test suites for multiple python versions with a simple
+  command.
+* ``Anaconda`` and ``Miniconda`` are too eager to take ownership of the python
+  environment: by default, when the installation is finished, they prepend their
+  own bin directory to the system ``PATH``. Because of this, there have been
+  reports of [conda libraries like libstdc++ shadowing system
+  ones](https://github.com/ilastik/ilastik-build-conda/issues/24) or the conda
+  python causing crashes on [desktop
+  environments](https://conda.io/docs/user-guide/troubleshooting.html#programs-fail-due-to-invoking-conda-python-instead-of-system-python).
+
+## The End
+
+Thank you for reading this. I hope that someone will one day find this useful.
+But most important:
+
+**Have fun!**
 
 ## Footnotes
 
