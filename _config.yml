@@ -23,7 +23,7 @@ twitter_username:
 github_username: montefra
 
 # analytics and other services
-# google_analytics: UA-109766767-1
+google_analytics: UA-109766767-1
 
 # Build settings
 markdown: kramdown
