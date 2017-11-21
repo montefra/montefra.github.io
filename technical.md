@@ -4,6 +4,13 @@ title: This site
 permalink: /technical/
 ---
 
+### Analytics
+
+This website uses [Google Analytics](https://analytics.google.com) for my
+curiosity. All the optional tracking features are disabled.
+
+### Style and templates
+
 This site uses as base the [hacker] theme, with layout templates based both on
 the [hacker] and the [minima] themes. 
 
