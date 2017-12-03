@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Testing a MySQL function"
-categories: python mysql tests
+categories: python mysql tests TDD
 author: Francesco Montesano
 ---
 
@@ -35,18 +35,36 @@ def get_obsnumber(conf):
     return obsnumber
 ```
 
-I was given an example of the code, so I knew what I had to implement, but I
-needed to figure out how to test it.
+I was given an example of the code, so I knew what I had to implement, but I had
+to figure out how to test it.
 
 ## How hard can it be?
 
-For the tests I need to start a MySQL server, add the ``my_table`` table and
+For the tests I needed to start a MySQL server, add the ``my_table`` table and
 some row and they throw away the server at the end.
 
 Sounds easy, doesn't it?
 
-Unfortunately I never used MySQL in my life, so I started searching for
-tutorials and solutions.
+Unfortunately I never used MySQL before, so I started searching online for
+tutorials and solutions. 
+
+### ``pytest-mysql``
+
+At first I decided to give
+[pytest-mysql](https://github.com/ClearcodeHQ/pytest-mysql) a try. From the
+documentation it seemed simple enough to use and, being a
+[pytest](https://docs.pytest.org) plugins, it integrates well with my test
+suite.
+
+On my work computer 
+I started to test it on my work computer, a Kubuntu 16.04 box, with MySQL 5.7.
+At first I had to install a few packages.
+
+OpenSUSE cannot start the server, because the use is set to ``None``, no matter
+what. On Kubuntu doesn't work because ``mysql_install_db`` [has been
+deprecated](https://dev.mysql.com/doc/refman/5.7/en/mysql-install-db.html) in
+favour of ``mysqld --initialize/--initialize-insecure`` and many packages has
+not yet been updated.
 
 ### Systems 
 
@@ -58,12 +76,6 @@ tutorials and solutions.
 
 * [my_virtualenv](https://github.com/evgeni/my_virtualenv): bash script, works
   on OpenSUSE, fails on Kubuntu
-* [pytest-mysql](https://github.com/ClearcodeHQ/pytest-mysql): pytest plugin. On
-  OpenSUSE cannot start the server, because the use is set to ``None``, no
-  matter what. On Kubuntu doesn't work because ``mysql_install_db`` [has been
-  deprecated](https://dev.mysql.com/doc/refman/5.7/en/mysql-install-db.html) in
-  favour of ``mysqld --initialize/--initialize-insecure`` and many packages has
-  not yet been updated.
 
 ## The docker way
 
