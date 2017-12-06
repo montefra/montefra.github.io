@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Testing a MySQL function"
-categories: python mysql tests TDD
+categories: python mysql docker tests TDD
 author: Francesco Montesano
 ---
 
@@ -48,7 +48,7 @@ Sounds easy, doesn't it?
 Unfortunately I never used MySQL before, so I started searching online for
 tutorials and solutions. 
 
-### Create a temporary MySQL server.
+## Create a temporary MySQL server.
 
 At first I decided to give a go at
 [pytest-mysql](https://github.com/ClearcodeHQ/pytest-mysql): it is
@@ -84,7 +84,13 @@ the reason described above.
 
 ## The docker way
 
-[example of docker mysql](https://severalnines.com/blog/mysql-docker-containers-understanding-basics)
+So I needed to find a way to run a MySQL server that would work on every system,
+independently of the MySQL/MariaDB version, or even without them: this seemed
+the perfect job for [Docker](https://docker.com). Before starting, I searched
+for more information and found a [nice
+tutorial](https://severalnines.com/blog/mysql-docker-containers-understanding-basics).
+
+
 [example of docker compose](https://github.com/bossbossk20/docker-compose-mysql/blob/master/docker-compose.yml)
 
 ## Footnotes
