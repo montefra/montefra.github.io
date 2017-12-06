@@ -48,36 +48,47 @@ Sounds easy, doesn't it?
 Unfortunately I never used MySQL before, so I started searching online for
 tutorials and solutions. 
 
-### ``pytest-mysql``
+### Create a temporary MySQL server.
 
-At first I decided to give
-[pytest-mysql](https://github.com/ClearcodeHQ/pytest-mysql) a try. From the
-documentation it seemed simple enough to use and, being a
-[pytest](https://docs.pytest.org) plugins, it integrates well with my test
-suite.
+At first I decided to give a go at
+[pytest-mysql](https://github.com/ClearcodeHQ/pytest-mysql): it is
+[pytest](https://docs.pytest.org) plugin and it provides a couple of fixtures:
+``mysql_proc`` runs a server for the duration of the test session and ``mysql``
+creates a database that is thrown away at the end of the test function. The test
+functions looks like this:
 
-On my work computer 
-I started to test it on my work computer, a Kubuntu 16.04 box, with MySQL 5.7.
-At first I had to install a few packages.
+```python
+def test_get_obsnumber(mysql_proc, mysql):
+    '''try to get the observation number'''
+    # connect to the database
+    # add my_table and one entry with obsnum = 42
+    # create a configuration object
+    conf = ...
 
-OpenSUSE cannot start the server, because the use is set to ``None``, no matter
-what. On Kubuntu doesn't work because ``mysql_install_db`` [has been
-deprecated](https://dev.mysql.com/doc/refman/5.7/en/mysql-install-db.html) in
-favour of ``mysqld --initialize/--initialize-insecure`` and many packages has
-not yet been updated.
+    obs_num = get_obsnumber(conf)
+    assert obs_num == 43
+```
 
-### Systems 
+Having a test function I tried to run ``pytest``. It took me a few trials to
+figure out that I needed to install a couple of packages () and then I hit a
+wall: the plugin [doesn't support MySQL
+v5.7](https://github.com/ClearcodeHQ/pytest-mysql/pull/) <sup
+id="a1">[1](#f1)</sup>. On an other computer I have MariaDB v10.2.10 instead:
+although this is a drop-in replacement for MySQL, it seems that the admin
+interface is different enough not to work with ``pytest-mysql``.
 
-* OpenSUSE Tumbleweed: mysql  Ver 15.1 Distrib 10.1.25-MariaDB, for Linux
-* (x86_64) using readline 5.1
-* (K)ubuntu 16.04:
-
-### Software that helps
-
-* [my_virtualenv](https://github.com/evgeni/my_virtualenv): bash script, works
-  on OpenSUSE, fails on Kubuntu
+I also found [my_virtualenv](https://github.com/evgeni/my_virtualenv), a nice
+bash script that sets up up a sort of virtual environment with a temporary MySQL
+server: it did work very well on my system with MariaDB, but failed on MySQL for
+the reason described above.
 
 ## The docker way
 
 [example of docker mysql](https://severalnines.com/blog/mysql-docker-containers-understanding-basics)
 [example of docker compose](https://github.com/bossbossk20/docker-compose-mysql/blob/master/docker-compose.yml)
+
+## Footnotes
+
+<b id="f1">1</b>&bull; ``mysql_install_db`` [has been
+deprecated](https://dev.mysql.com/doc/refman/5.7/en/mysql-install-db.html) in
+favour of ``mysqld --initialize/--initialize-insecure`` [↩](#a1)
