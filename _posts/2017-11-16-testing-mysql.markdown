@@ -86,12 +86,64 @@ the reason described above.
 
 So I needed to find a way to run a MySQL server that would work on every system,
 independently of the MySQL/MariaDB version, or even without them: this seemed
-the perfect job for [Docker](https://docker.com). Before starting, I searched
+the perfect job for [Docker](https://docker.com).
+
+Before starting, I searched for more information and found the
+[``pytest-docker``](https://github.com/AndreLouisCaron/pytest-docker) plugin and
+an example on how to use [docker compose to setup a MySQL
+container](https://github.com/bossbossk20/docker-compose-mysql/blob/master/docker-compose.yml).
+After some exploratory work, I managed to get a first version of the test fixtures
+and functions. Here is a pseudo-code example:
+
+```python
+import yaml
+
+@pytest.fixture(scope='session')
+def docker_compose_file(tmpdir_factory):
+    '''Temporary docker compose file'''
+    compose_file = tmpdir_factory.mktemp('arc_shot').join('docker-compose.yml')
+
+    environment_dict = dict(MYSQL_ALLOW_EMPTY_PASSWORD='no',
+                            MYSQL_ROOT_PASSWORD='test',
+                            MYSQL_DATABASE='test_db',
+                            MYSQL_USER
+                            MYSQL_USER='mysql_user',
+                            MYSQL_PASSWORD='mysql_password')
+    compose_conf = {'services': {'mysql': {'image': 'mysql',
+                                           'container_name': 'test_suite',
+                                           'environment': environment_dict}
+                                  }
+                     }
+
+    with compose_file.open('w') as f:
+        yaml.dump(compose_conf, stream=f)
+
+    return compose_file.strpath
+
+
+@pytest.fixture
+def mysql_table(docker_ip, docker_services):
+    '''Create the database table, fill it and drop it after the test is done'''
+    # connect to the database
+    # add my_table and one entry with obsnum = 42
+
+    yield
+
+    # drop the my_table
+
+
+def test_get_obsnumber(docker_ip, mysql_table):
+    '''try to get the observation number'''
+    # create a configuration object
+    conf = ...  # this also contain the docker_ip
+
+    obs_num = get_obsnumber(conf)
+    assert obs_num == 43
+```
+
 for more information and found a [nice
-tutorial](https://severalnines.com/blog/mysql-docker-containers-understanding-basics).
+tutorial](https://severalnines.com/blog/mysql-docker-containers-understanding-basics)
 
-
-[example of docker compose](https://github.com/bossbossk20/docker-compose-mysql/blob/master/docker-compose.yml)
 
 ## Footnotes
 
