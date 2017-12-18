@@ -88,12 +88,14 @@ So I needed to find a way to run a MySQL server that would work on every system,
 independently of the MySQL/MariaDB version, or even without them: this seemed
 the perfect job for [Docker](https://docker.com).
 
-Before starting, I searched for more information and found the
+Before starting, I searched for more information. I discovered the
 [``pytest-docker``](https://github.com/AndreLouisCaron/pytest-docker) plugin and
-an example on how to use [docker compose to setup a MySQL
-container](https://github.com/bossbossk20/docker-compose-mysql/blob/master/docker-compose.yml).
-After some exploratory work, I managed to get a first version of the test fixtures
-and functions. Here is a pseudo-code example:
+found examples on how to use [mysql docker
+containers](https://severalnines.com/blog/mysql-docker-containers-understanding-basics)
+and [docker
+compose](https://github.com/bossbossk20/docker-compose-mysql/blob/master/docker-compose.yml).
+After some exploratory work, I managed to get a working version of the test
+fixtures and functions. My tests looked more or less like this:
 
 ```python
 import yaml
@@ -129,7 +131,7 @@ def mysql_table(docker_ip, docker_services):
 
     yield
 
-    # drop the my_table
+    # drop my_table
 
 
 def test_get_obsnumber(docker_ip, mysql_table):
@@ -141,9 +143,35 @@ def test_get_obsnumber(docker_ip, mysql_table):
     assert obs_num == 43
 ```
 
-for more information and found a [nice
-tutorial](https://severalnines.com/blog/mysql-docker-containers-understanding-basics)
+With this in place, I could finally implement and test my new function.
 
+## One more step
+
+The requirement had been satisfied, but I still had a problem: how to test my
+code on my machines?
+
+Of course I could start the MySQL docker container and fill the database by hand
+every time that I need it. But this would easily become tedious and error prone. 
+
+So I decided to invest some more time and, with the help of
+[docker-py](https://docker-py.readthedocs.io/), I added a set of commands to
+integrate the setup and teardown of a MySQL docker container and the creation of
+``my_table`` with the rest of the project. I also rewrote the docker and MySQL
+related test fixtures to used this new feature instead of ``pytest-docker``:
+this allowed me more flexibility and control over my tests.
+
+So now, when I want to run the code on my computer I run
+
+    my_project docker_mysql up
+
+to start the docker image and add ``my_table`` and
+
+    my_project run
+
+to execute the main product. When I'm done I can get rid of the docker container
+with
+
+    my_project docker_mysql down
 
 ## Footnotes
 
