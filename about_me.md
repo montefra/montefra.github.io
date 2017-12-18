@@ -60,6 +60,9 @@ Milano, Italy
 ## Contacts and links
 
 <a href="mailto:{{ site.email }}" class="btn">Email me</a>
+<a href="https://www.linkedin.com/in/montefra" class="btn">LinkedIn</a>
+<a href="https://www.xing.com/profile/Francesco_Montesano2" class="btn">Xing</a>
+<a href="http://www.mpe.mpg.de/~montefra" class="btn">MPE personal website</a>
 
 <a href="{{ site.github.owner_url }}" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
 
