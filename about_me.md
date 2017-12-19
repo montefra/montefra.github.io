@@ -55,7 +55,7 @@ Milano, Italy
 ## Curriculum Vitae
 
 [English]({{ site.url }}/static/CV_Francesco_Montesano_eng.pdf) (updated on
-25.10.2017)
+19.12.2017)
 
 ## Contacts and links
 
