@@ -7,7 +7,7 @@ author: Francesco Montesano
 
 ## A simple MyQSL query
 
-For a project at work I had to add a simple function to get a number from a
+In one of my projects I had to add a function to get a number from a
 [MySQL](https://www.mysql.com/) table, increase it, add it back and return the
 number. This is more or less it:
 
@@ -16,8 +16,10 @@ import pymysql
 
 def get_obsnumber(conf):
     '''Get a number from the database'''
-    conn = pymysql.connect(host=conf['host'], port=conf['port'],
-                           user=conf['user'], password=conf['password'],
+    conn = pymysql.connect(host=conf['host'],
+                           port=conf['port'],
+                           user=conf['user'],
+                           password=conf['password'],
                            database=conf['database'])
     cursor = conn.cursor()
     # get the number
@@ -27,35 +29,36 @@ def get_obsnumber(conf):
     obsnumber += 1
     # set it back
     cursor.execute('INSERT INTO my_table (obsnum) values (%s)', obsnumber)
+    # commit and close everything
     conn.commit()
-    # close everything and commit
     cursor.close()
     conn.close()
 
     return obsnumber
 ```
 
-I was given an example of the code, so I knew what I had to implement, but I had
-to figure out how to test it.
+I was given an example of the code, so I knew what I had to implement, but first
+I had to figure out how to test it.
 
 ## How hard can it be?
 
 For the tests I needed to start a MySQL server, add the ``my_table`` table and
-some row and they throw away the server at the end.
+some row and then at the end throw away the server.
 
-Sounds easy, doesn't it?
+It sounds easy, doesn't it?
 
-Unfortunately I never used MySQL before, so I started searching online for
-tutorials and solutions. 
+Unfortunately I never used MySQL before, so the first thing to do was to start
+searching online for tutorials and possible solutions. 
 
 ## Create a temporary MySQL server.
 
 At first I decided to give a go at
-[pytest-mysql](https://github.com/ClearcodeHQ/pytest-mysql): it is
-[pytest](https://docs.pytest.org) plugin and it provides a couple of fixtures:
-``mysql_proc`` runs a server for the duration of the test session and ``mysql``
-creates a database that is thrown away at the end of the test function. The test
-functions looks like this:
+[pytest-mysql](https://github.com/ClearcodeHQ/pytest-mysql): it seems easy
+enough to use and, being a [pytest](https://docs.pytest.org) plugin, would fit
+into my workflow. The package provides a couple of fixtures: i) ``mysql_proc``
+starts a MySQL server when first used and tears it down at the end of the test
+session and ii) ``mysql`` creates a database that is thrown away at the end of
+the each test function. The test functions looks like this:
 
 ```python
 def test_get_obsnumber(mysql_proc, mysql):
@@ -69,33 +72,39 @@ def test_get_obsnumber(mysql_proc, mysql):
     assert obs_num == 43
 ```
 
-Having a test function I tried to run ``pytest``. It took me a few trials to
-figure out that I needed to install a couple of packages () and then I hit a
-wall: the plugin [doesn't support MySQL
+With a test function ready, I was ready to run ``pytest``. Of course I had to
+install a couple of MySQL administration packages to be able to start the
+database server. Then I hit a wall: the plugin [doesn't support MySQL
 v5.7](https://github.com/ClearcodeHQ/pytest-mysql/pull/) <sup
-id="a1">[1](#f1)</sup>. On an other computer I have MariaDB v10.2.10 instead:
-although this is a drop-in replacement for MySQL, it seems that the admin
-interface is different enough not to work with ``pytest-mysql``.
+id="a1">[1](#f1)</sup> and my desktop computer has exactly that version. On an
+other computer I have [MariaDB]() v10.2.10, a drop-in replacement for MySQL. I
+soon abandoned hope: MariaDB and MySQL administration interfaces are likely
+subtly different and ``pytest-mysql`` cannot properly set user names when
+creating a new database.
 
-I also found [my_virtualenv](https://github.com/evgeni/my_virtualenv), a nice
-bash script that sets up up a sort of virtual environment with a temporary MySQL
-server: it did work very well on my system with MariaDB, but failed on MySQL for
-the reason described above.
+During my searches I stumbled across
+[my_virtualenv](https://github.com/evgeni/my_virtualenv), a nice bash script
+that sets up a sort of virtual environment with a temporary MySQL server. It
+did work very well on my system with MariaDB, but failed on MySQL because I have
+v5.7.
 
 ## The docker way
 
-So I needed to find a way to run a MySQL server that would work on every system,
-independently of the MySQL/MariaDB version, or even without them: this seemed
-the perfect job for [Docker](https://docker.com).
+So I needed to find a way to run a MySQL server that would work at least of my
+systems, independently of the MySQL/MariaDB version, or even without them. Then
+I realised that I already had the answer: [Docker](https://docker.com).
 
-Before starting, I searched for more information. I discovered the
+I found the
 [``pytest-docker``](https://github.com/AndreLouisCaron/pytest-docker) plugin and
-found examples on how to use [mysql docker
+some examples on how to use [mysql docker
 containers](https://severalnines.com/blog/mysql-docker-containers-understanding-basics)
 and [docker
 compose](https://github.com/bossbossk20/docker-compose-mysql/blob/master/docker-compose.yml).
-After some exploratory work, I managed to get a working version of the test
-fixtures and functions. My tests looked more or less like this:
+
+So I sat down and started to explore how to create docker containers, connect to
+the MySQL servers running in them and create tables and add data. Once I felt
+confident, I wrote the test fixtures and functions that I needed. They looked
+roughly like the following code:
 
 ```python
 import yaml
@@ -103,7 +112,7 @@ import yaml
 @pytest.fixture(scope='session')
 def docker_compose_file(tmpdir_factory):
     '''Temporary docker compose file'''
-    compose_file = tmpdir_factory.mktemp('arc_shot').join('docker-compose.yml')
+    compose_file = tmpdir_factory.mktemp('docker_files').join('docker-compose.yml')
 
     environment_dict = dict(MYSQL_ALLOW_EMPTY_PASSWORD='no',
                             MYSQL_ROOT_PASSWORD='test',
@@ -143,32 +152,37 @@ def test_get_obsnumber(docker_ip, mysql_table):
     assert obs_num == 43
 ```
 
-With this in place, I could finally implement and test my new function.
+Now that I had a test, I could start implementing the new function.
 
 ## One more step
 
-The requirement had been satisfied, but I still had a problem: how to test my
-code on my machines?
+The requirement had been satisfied, but I still had a problem:
 
-Of course I could start the MySQL docker container and fill the database by hand
-every time that I need it. But this would easily become tedious and error prone. 
+> How to test my code on my machines?
+
+Of course the answer is: 
+
+> start the MySQL docker container and fill the database
+
+I could do it my hand every time that I need it. But I don't like this kind of
+things: it's tedious and very error prone.
 
 So I decided to invest some more time and, with the help of
 [docker-py](https://docker-py.readthedocs.io/), I added a set of commands to
 integrate the setup and teardown of a MySQL docker container and the creation of
-``my_table`` with the rest of the project. I also rewrote the docker and MySQL
-related test fixtures to used this new feature instead of ``pytest-docker``:
-this allowed me more flexibility and control over my tests.
+``my_table`` with the rest of the project. I also dropped ``pytest-docker`` and
+rewrote the docker and MySQL fixtures using those new features: this way I have
+more flexibility and control over my tests and less code repetitions.
 
-So now, when I want to run the code on my computer I run
+So now, when I want to execute the code on my computer I run
 
     my_project docker_mysql up
 
-to start the docker image and add ``my_table`` and
+to start the docker image and
 
     my_project run
 
-to execute the main product. When I'm done I can get rid of the docker container
+to execute the main part. When I'm done I can get rid of the docker container
 with
 
     my_project docker_mysql down
