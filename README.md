@@ -53,15 +53,15 @@ Having trouble with Pages? Check out our [documentation](https://help.github.com
 
 * Install the dependences locally:
 
-    bundle --path vendor/bundle
+        bundle install --path vendor/bundle
 
 * Serve the jekyll website locally:
 
-    bundle exec jekyll serve
+        bundle exec jekyll serve
 
 * Serve the offline documentation
 
-    bundle exec jekyll _3.5.2_ docs
+        bundle exec jekyll _3.5.2_ docs
 
 ## Acknowledgements
 
