@@ -4,12 +4,16 @@ layout: default
 
 ## Current position
 
-2014 - present: **Software engineer, data analyst**
+07.2018 - present: Software Consultant
+
+[TNG Technology Consulting](https://www.tngtech.com)
+
+## Work experience
+
+2014 - 06.2018: **Software engineer, data analyst**
 
 Max-Plank-Institute for Extraterrestrial Physics,
 Garching bei Munchen, Germany
-
-## Work experience
 
 2012 - 2013: **Post-doctoral researcher**
 
